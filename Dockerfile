@@ -1,4 +1,4 @@
-FROM node:10.16-alpine as build
+FROM node:10.16-alpine
 # Basic setup
 ARG APP_DIR=/usr/src/app
 WORKDIR $APP_DIR
@@ -10,4 +10,4 @@ COPY package*.json  $APP_DIR/
 RUN npm i --quiet
 COPY . .
 
-CMD ['npm', 'start']
+CMD ["npm", "start"]

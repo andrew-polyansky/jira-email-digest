@@ -5,7 +5,7 @@ const { getHeroes } = require('./jira');
 const { render } = require('./render');
 
 const TRANSPORT = process.env.TRANSPORT || 'SFTP';
-const CRONE_PATTERN = process.env.CRONE_PETTERN || '00 49 9 * * 1-5';
+const CRON_PATTERN = process.env.CRON_PATTERN || '00 49 9 * * *';
 
 const transportMap = {
   MAILGUN: 'mailgun',
@@ -43,6 +43,15 @@ async function sendMail() {
 }
 
 // eslint-disable-next-line no-new
-new CronJob(CRONE_PATTERN, (() => {
+new CronJob(CRON_PATTERN, (() => {
   sendMail();
 }), null, true, 'Europe/Minsk');
+
+
+console.log('******************************************');
+console.log('Jira Email Digest have started');
+console.log(`TRANSPORT: ${TRANSPORT}`);
+console.log(`JIRA QUERY: ${process.env.JQL_QUERY}`);
+console.log(`CRON PATTERN: ${CRON_PATTERN}`);
+console.log(`GROUP BY: ${process.env.GROUP_BY}`);
+console.log('******************************************');
